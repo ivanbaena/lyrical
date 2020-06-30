@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.10.3",
     "apollo-client": "^2.6.10",
     "axios": "^0.19.2",
     "babel-core": "^6.26.3",
@@ -39,5 +40,9 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
     "webpack-dev-middleware": "^3.7.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1"
   }
 }
