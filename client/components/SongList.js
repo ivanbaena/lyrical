@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/react-hooks';
+import query from '../queries/fetchSongs';
 
 const SongList = () => {
   const { loading, error, data } = useQuery(query);
-  useEffect(() => {
-    console.log(loading, error, data);
-  }, [loading]);
+  const [deleteSong] = useMutation(mutation, {
+    refetchQueries: [{ query: query }],
+  });
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
@@ -14,18 +17,33 @@ const SongList = () => {
   return (
     <div>
       <ul className='collection'>
-        {data.songs.map((song) => {
-          return <li className='collection-item'>{song.title}</li>;
+        {data.songs.map(({ title, id }) => {
+          return (
+            <li className='collection-item'>
+              <Link to={`/songs/id/${id}`}>
+                {title}
+                <i
+                  className='material-icons'
+                  onClick={() => deleteSong({ variables: { id } })}
+                >
+                  delete
+                </i>
+              </Link>
+            </li>
+          );
         })}
       </ul>
+      <Link to='/songs/new' className='btn-floating btn-large red right'>
+        <i className='material-icons'>add</i>
+      </Link>
     </div>
   );
 };
 
-const query = gql`
-  {
-    songs {
-      title
+const mutation = gql`
+  mutation DeleteSong($id: ID) {
+    deleteSong(id: $id) {
+      id
     }
   }
 `;

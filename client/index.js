@@ -1,3 +1,5 @@
+import './style/style.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
@@ -7,6 +9,7 @@ import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import SongList from './components/SongList';
 import App from './components/App';
 import SongCreate from './components/SongCreate';
+import SongDetail from './components/SongDetail';
 
 const client = new ApolloClient({});
 const Root = () => {
@@ -18,7 +21,8 @@ const Root = () => {
             <Route exact path={'/'}>
               <SongList />
             </Route>
-            <Route path='/song/new' component={SongCreate} />
+            <Route path='/songs/new' component={SongCreate} />
+            <Route path='/songs/id/:id' component={SongDetail} />
           </App>
         </Route>
       </Router>
