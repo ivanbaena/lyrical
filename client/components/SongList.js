@@ -20,15 +20,13 @@ const SongList = () => {
         {data.songs.map(({ title, id }) => {
           return (
             <li className='collection-item'>
-              <Link to={`/songs/id/${id}`}>
-                {title}
-                <i
-                  className='material-icons'
-                  onClick={() => deleteSong({ variables: { id } })}
-                >
-                  delete
-                </i>
-              </Link>
+              <Link to={`/songs/id/${id}`}>{title}</Link>
+              <i
+                className='material-icons'
+                onClick={() => deleteSong({ variables: { id } })}
+              >
+                delete
+              </i>
             </li>
           );
         })}

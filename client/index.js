@@ -5,13 +5,18 @@ import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import SongList from './components/SongList';
 import App from './components/App';
 import SongCreate from './components/SongCreate';
 import SongDetail from './components/SongDetail';
 
-const client = new ApolloClient({});
+const client = new ApolloClient({
+  cache: new InMemoryCache({
+    dataIdFromObject: (o) => o.id,
+  }),
+});
 const Root = () => {
   return (
     <ApolloProvider client={client}>
